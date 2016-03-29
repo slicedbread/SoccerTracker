@@ -1,61 +1,54 @@
 package com.bread.ian.soccertracker;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+
+public class PastGames extends Activity {
 
     public static final String mPrefs = "MyPrefs" ;
     SharedPreferences sharedpreferences;
     ArrayList<GameRecord> recordList;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        addRecordToList(new GameRecord(new Date()));
+        setContentView(R.layout.activity_past_games);
+        recordList = getListFromPrefs();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addRecordToList(new GameRecord(new Date()));
-            }
-        });
+        GameRecord[] g = recordList.toArray(new GameRecord[recordList.size()]);
+        String[] dates = new String[g.length];
+        for(int i = 0; i<g.length; i++)
+        {
+            dates[i] = g[i].getDate().toString();
+        }
+       // Log.d("mytag", dates[0]);
+        // Get ListView object from xml
+        listView = (ListView) findViewById(R.id.list);
 
 
-    }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, dates);
 
-    /** Called when the user clicks the Send button */
-    public void sendMessage(View view) {
-        // Do something in response to button
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-    }
-
-    public void viewOldGames(View view){
-        Intent intent = new Intent(this, PastGames.class);
-        startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_past_games, menu);
         return true;
     }
 
@@ -82,15 +75,5 @@ public class MainActivity extends AppCompatActivity {
         if (recordList == null)
             return new ArrayList<GameRecord>();
         return recordList;
-    }
-
-    public void addRecordToList(GameRecord g){
-        sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        ArrayList<GameRecord> l = getListFromPrefs();
-        l.add(g);
-        String JSONString = new Gson().toJson(l);
-        editor.putString(mPrefs, JSONString);
-        editor.commit();
     }
 }
