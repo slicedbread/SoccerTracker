@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -24,6 +25,10 @@ public class GameActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setImageResource(R.drawable.soccer_field);
+
     }
 
 }

@@ -16,9 +16,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Goal"
         android:id="@+id/button"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="38dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
@@ -26,17 +26,34 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Miss"
         android:id="@+id/button2"
         android:layout_alignTop="@+id/button"
-        android:layout_centerHorizontal="true" />
+        android:layout_toEndOf="@+id/button" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Foul"
         android:id="@+id/button3"
         android:layout_alignTop="@+id/button2"
-        android:layout_alignParentEnd="true" />
+        android:layout_toEndOf="@+id/button2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="X: __ Y: __"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/button3"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
