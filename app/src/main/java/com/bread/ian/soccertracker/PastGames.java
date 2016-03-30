@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -37,14 +36,12 @@ public class PastGames extends Activity {
         {
             dates[i] = g[i].getDate().toString();
         }
-       // Log.d("mytag", dates[0]);
-        // Get ListView object from xml
+
         listView = (ListView) findViewById(R.id.list);
 
-        Log.d("mytag", dates[0]);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, dates);
-
+        listView.setAdapter(adapter);
     }
 
     @Override
