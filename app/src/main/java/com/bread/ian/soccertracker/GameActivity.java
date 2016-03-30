@@ -1,5 +1,6 @@
 package com.bread.ian.soccertracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class GameActivity extends AppCompatActivity {
+
+    public void toEmailActivity(View view) {
+        Intent intent = new Intent(this, EmailActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
