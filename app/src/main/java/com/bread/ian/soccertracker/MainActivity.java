@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        addRecordToList(new GameRecord(new Date()));
+
+        sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -75,17 +76,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList<GameRecord> getListFromPrefs(){
-        sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
-        String JSONString = getPreferences(MODE_PRIVATE).getString(mPrefs, null);
+        String JSONString = sharedpreferences.getString(mPrefs, null);
         Type type = new TypeToken<ArrayList<GameRecord>>(){}.getType();
         recordList = new Gson().fromJson(JSONString, type);
         if (recordList == null)
-            return new ArrayList<GameRecord>();
+            return new ArrayList<>();
         return recordList;
     }
 
     public void addRecordToList(GameRecord g){
-        sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         ArrayList<GameRecord> l = getListFromPrefs();
         l.add(g);

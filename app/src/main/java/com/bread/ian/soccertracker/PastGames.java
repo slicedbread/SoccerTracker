@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,7 @@ public class PastGames extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_games);
+        sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
         recordList = getListFromPrefs();
 
         GameRecord[] g = recordList.toArray(new GameRecord[recordList.size()]);
@@ -39,8 +41,8 @@ public class PastGames extends Activity {
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
 
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        Log.d("mytag", dates[0]);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, dates);
 
     }
@@ -68,12 +70,11 @@ public class PastGames extends Activity {
     }
 
     public ArrayList<GameRecord> getListFromPrefs(){
-        sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
-        String JSONString = getPreferences(MODE_PRIVATE).getString(mPrefs, null);
+        String JSONString = sharedpreferences.getString(mPrefs, null);
         Type type = new TypeToken<ArrayList<GameRecord>>(){}.getType();
         recordList = new Gson().fromJson(JSONString, type);
         if (recordList == null)
-            return new ArrayList<GameRecord>();
+            return new ArrayList<>();
         return recordList;
     }
 }
