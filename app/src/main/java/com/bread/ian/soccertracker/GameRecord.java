@@ -3,16 +3,19 @@ package com.bread.ian.soccertracker;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by ian on 3/29/16.
- */
+
 public class GameRecord {
     private Date date;
     private ArrayList<GameEvent> eventList;
+    private static int currID = 0;
+    private int id;
+
 
     public GameRecord(Date d){
         date = d;
-        eventList = new ArrayList<GameEvent>();
+        eventList = new ArrayList<>();
+        id = ++currID;
+
     }
 
     public ArrayList<GameEvent> getList(){
