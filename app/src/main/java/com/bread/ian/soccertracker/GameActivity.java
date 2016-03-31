@@ -1,5 +1,6 @@
 package com.bread.ian.soccertracker;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 
 public class GameActivity extends AppCompatActivity {
@@ -16,12 +18,22 @@ public class GameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+//        View decorView = getWindow().getDecorView();
+//
+//        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+//        decorView.setSystemUiVisibility(uiOptions);
+//
+//        ActionBar actionBar = getActionBar();
+//        actionBar.hide();
         setContentView(R.layout.activity_game);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -32,8 +44,8 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setImageResource(R.drawable.soccer_field);
+        //ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        //imageView.setImageResource(R.drawable.soccer_field);
 
     }
 
