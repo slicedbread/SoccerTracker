@@ -8,11 +8,11 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bread.ian.soccertracker.Game"
     tools:showIn="@layout/activity_game">
-    <LinearLayout
+    <com.bread.ian.soccertracker.SoccerField
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="8"
-        android:background="@drawable/soccer_field"></LinearLayout>
+        android:background="@drawable/soccer_field"></com.bread.ian.soccertracker.SoccerField>
 <LinearLayout
     android:layout_height="wrap_content"
     android:layout_width="wrap_content"
