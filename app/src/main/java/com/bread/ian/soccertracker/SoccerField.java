@@ -2,6 +2,7 @@ package com.bread.ian.soccertracker;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -25,6 +26,8 @@ public class SoccerField extends View implements View.OnTouchListener{
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private int dotRadius;
+
+    private Bitmap soccerball;
 
     private HashMap pointerMap;
 
@@ -53,6 +56,8 @@ public class SoccerField extends View implements View.OnTouchListener{
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         pointerMap = new HashMap();
         setOnTouchListener(this);
+
+        soccerball = BitmapFactory.decodeResource(getResources(), R.drawable.soccerball);
         //setDotRadius(SMALL_RADIUS);
         //setColor(Color.BLACK);
     }
@@ -76,12 +81,19 @@ public class SoccerField extends View implements View.OnTouchListener{
         int id = event.getPointerId(index);
         float x = event.getX(index);
         float y = event.getY(index);
-
+        Point p;
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_POINTER_DOWN:
-                Point p = new Point((int)x, (int)y);
+                p = new Point((int)x, (int)y);
                 pointerMap.put(id, p);
+                mCanvas.drawBitmap(soccerball,x,y,new Paint());
+                invalidate();
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                p = new Point((int)x, (int)y);
+                pointerMap.put(id, p);
+                mCanvas.drawBitmap(soccerball, x, y,new Paint());
+                invalidate();
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -94,7 +106,7 @@ public class SoccerField extends View implements View.OnTouchListener{
                         if (dotRadius == AREA_RADIUS) {
                             mPaint.setStrokeWidth((float) event.getSize(i) * 1000);
                         }
-                        mCanvas.drawLine(last.x, last.y, x, y, mPaint);
+                        //mCanvas.drawLine(last.x, last.y, x, y, mPaint);
                     }
                     pointerMap.put(id, new Point((int) x, (int) y));
                 }
