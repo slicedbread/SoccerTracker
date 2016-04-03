@@ -22,15 +22,14 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //below only work for extends Activity and old API
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-//        View decorView = getWindow().getDecorView();
-//
-//        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-//        decorView.setSystemUiVisibility(uiOptions);
-//
-//        ActionBar actionBar = getActionBar();
-//        actionBar.hide();
+        //below only work for no hiding setting in XML
+        //ActionBar actionBar = getActionBar();
+        //actionBar.hide();
+        
         setContentView(R.layout.activity_game);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
