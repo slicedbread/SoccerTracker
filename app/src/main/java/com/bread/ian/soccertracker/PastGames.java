@@ -1,25 +1,19 @@
 package com.bread.ian.soccertracker;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
 public class PastGames extends Activity {
 
-    public static final String mPrefs = "MyPrefs" ;
-    SharedPreferences sharedpreferences;
+    //public static final String mPrefs = "MyPrefs" ;
+    //SharedPreferences sharedpreferences;
     ArrayList<GameRecord> recordList;
     ListView listView;
 
@@ -27,8 +21,8 @@ public class PastGames extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_games);
-        sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
-        recordList = getListFromPrefs();
+        //sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
+        recordList = GameRecord.getListFromPrefs();
 
         GameRecord[] g = recordList.toArray(new GameRecord[recordList.size()]);
 
@@ -62,12 +56,4 @@ public class PastGames extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public ArrayList<GameRecord> getListFromPrefs(){
-        String JSONString = sharedpreferences.getString(mPrefs, null);
-        Type type = new TypeToken<ArrayList<GameRecord>>(){}.getType();
-        recordList = new Gson().fromJson(JSONString, type);
-        if (recordList == null)
-            return new ArrayList<>();
-        return recordList;
-    }
 }

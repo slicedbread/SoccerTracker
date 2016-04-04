@@ -1,5 +1,13 @@
 package com.bread.ian.soccertracker;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,15 +15,15 @@ import java.util.Date;
 public class GameRecord {
     private Date date;
     private ArrayList<GameEvent> eventList;
-    private static int currID = 0;
-    private int id;
+    public static ArrayList<GameRecord> recordList;
+    public static SharedPreferences sharedpreferences;
+    public static final String mPrefs = "MyPrefs";
 
 
     public GameRecord(Date d){
         date = d;
         eventList = new ArrayList<>();
-        //TODO these ids aren't unique, they start over on app load
-        id = ++currID;
+
 
     }
 
@@ -34,7 +42,31 @@ public class GameRecord {
 
     @Override
     public String toString() {
-        return "Game " + id + " on " + date.toString();
+        return "Game on " + date.toString();
+    }
+
+    public static ArrayList<GameRecord> getListFromPrefs(){
+        String JSONString = sharedpreferences.getString(mPrefs, null);
+        Type type = new TypeToken<ArrayList<GameRecord>>(){}.getType();
+        recordList = new Gson().fromJson(JSONString, type);
+        if (recordList == null)
+            return new ArrayList<>();
+        return recordList;
+    }
+
+    public void saveRecord(){
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        ArrayList<GameRecord> l = getListFromPrefs();
+        l.add(this);
+        String JSONString = new Gson().toJson(l);
+        editor.putString(mPrefs, JSONString);
+        editor.commit();
+    }
+
+    public static void onAppStart(){
+        Context applicationContext = MainActivity.getContextOfApplication();
+        sharedpreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+        recordList = new ArrayList<>();
     }
 
 }

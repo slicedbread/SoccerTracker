@@ -10,31 +10,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String mPrefs = "MyPrefs" ;
+    public static final String mPrefs = "MyPrefs";
     SharedPreferences sharedpreferences;
     ArrayList<GameRecord> recordList;
+    public static Context contextOfApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
+
+        contextOfApplication = getApplicationContext();
+
+        GameRecord.onAppStart();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addRecordToList(new GameRecord(new Date()));
+                (new GameRecord(new Date())).saveRecord();
             }
         });
 
@@ -75,21 +78,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public ArrayList<GameRecord> getListFromPrefs(){
-        String JSONString = sharedpreferences.getString(mPrefs, null);
-        Type type = new TypeToken<ArrayList<GameRecord>>(){}.getType();
-        recordList = new Gson().fromJson(JSONString, type);
-        if (recordList == null)
-            return new ArrayList<>();
-        return recordList;
+    public static Context getContextOfApplication(){
+        return contextOfApplication;
     }
 
-    public void addRecordToList(GameRecord g){
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        ArrayList<GameRecord> l = getListFromPrefs();
-        l.add(g);
-        String JSONString = new Gson().toJson(l);
-        editor.putString(mPrefs, JSONString);
-        editor.commit();
-    }
+
 }
