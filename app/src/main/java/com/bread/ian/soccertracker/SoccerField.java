@@ -27,7 +27,7 @@ public class SoccerField extends View implements View.OnTouchListener{
 
     private Bitmap eventType;
 
-    private HashMap pointerMap;
+    //private HashMap pointerMap;
 
     public SoccerField(Context context) {
         super(context);
@@ -66,7 +66,7 @@ public class SoccerField extends View implements View.OnTouchListener{
     private void initDotsView() {
         mPaint = new Paint();
         mPaint.setStrokeCap(Paint.Cap.ROUND);
-        pointerMap = new HashMap();
+      //  pointerMap = new HashMap();
         setOnTouchListener(this);
 
         // create new Game Record
@@ -90,39 +90,25 @@ public class SoccerField extends View implements View.OnTouchListener{
     }
 
     public boolean onTouch(View v, MotionEvent event) {
-        // Log.d("DEBUG", "Receiving touch event");
-        int action = event.getActionMasked();
-        int index = event.getActionIndex();
-        int id = event.getPointerId(index);
-        float x = event.getX(index);
-        float y = event.getY(index);
-        Point p;
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                p = new Point((int)x, (int)y);
-                pointerMap.put(id, p);
-                mCanvas.drawBitmap(eventType,x,y,new Paint());
-                g.addGameEvent(2,(int)x,(int)y);
-                invalidate();
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN:
-                p = new Point((int)x, (int)y);
-                pointerMap.put(id, p);
-                mCanvas.drawBitmap(eventType, x, y, new Paint());
-                g.addGameEvent(2,(int)x,(int)y);
-                invalidate();
-                break;
-
-            case MotionEvent.ACTION_MOVE:
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_POINTER_UP:
-            case MotionEvent.ACTION_CANCEL:
-                pointerMap.remove(id);
-                break;
-            default:
-                break;
-
+        // Removed support for multitouch.
+            int action = event.getActionMasked();
+            int index = event.getActionIndex();
+            //int id = event.getPointerId(index);
+            float x = event.getX(index);
+            float y = event.getY(index);
+            Point p;
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+               // case MotionEvent.ACTION_POINTER_DOWN:
+                    p = new Point((int)x, (int)y);
+                    //pointerMap.put(id, p);
+                    mCanvas.drawBitmap(eventType,x,y,new Paint());
+                    g.addGameEvent(2,(int)x,(int)y);
+                    invalidate();
+                    break;
+                default:
+                    break;
+            }
+            return true;
         }
-        return true;
     }
-}
