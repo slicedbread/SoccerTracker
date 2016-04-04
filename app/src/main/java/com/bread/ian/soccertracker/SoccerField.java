@@ -24,6 +24,7 @@ public class SoccerField extends View implements View.OnTouchListener{
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private GameRecord g;
+    private int current_event = 1;
 
     private Bitmap eventType;
 
@@ -52,10 +53,13 @@ public class SoccerField extends View implements View.OnTouchListener{
     public void setEventType(String s) {
         if (s.equals("GOAL")) {
             eventType = BitmapFactory.decodeResource(getResources(), R.drawable.soccerball);
+            current_event = 1;
         } else if (s.equals("MISS")) {
             eventType = BitmapFactory.decodeResource(getResources(), R.drawable.missball);
+            current_event = 2;
         } else if (s.equals("FOUL")) {
             eventType = BitmapFactory.decodeResource(getResources(), R.drawable.foulball);
+            current_event = 3;
         }
     }
 
@@ -103,7 +107,7 @@ public class SoccerField extends View implements View.OnTouchListener{
                     p = new Point((int)x, (int)y);
                     //pointerMap.put(id, p);
                     mCanvas.drawBitmap(eventType,x,y,new Paint());
-                    g.addGameEvent(2,(int)x,(int)y);
+                    g.addGameEvent(current_event,(int)x,(int)y);
                     invalidate();
                     break;
                 default:
