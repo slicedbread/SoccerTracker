@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.graphics.Color;
 
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -22,6 +23,7 @@ public class SoccerField extends View implements View.OnTouchListener{
     private Paint  mPaint;
     private Bitmap mBitmap;
     private Canvas mCanvas;
+    private GameRecord g;
 
     private Bitmap eventType;
 
@@ -57,11 +59,18 @@ public class SoccerField extends View implements View.OnTouchListener{
         }
     }
 
+    public GameRecord returnRecord() {
+        return g;
+    }
+
     private void initDotsView() {
         mPaint = new Paint();
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         pointerMap = new HashMap();
         setOnTouchListener(this);
+
+        // create new Game Record
+        g = new GameRecord(new Date());
 
         eventType = BitmapFactory.decodeResource(getResources(), R.drawable.soccerball);
         //setDotRadius(SMALL_RADIUS);
@@ -93,12 +102,14 @@ public class SoccerField extends View implements View.OnTouchListener{
                 p = new Point((int)x, (int)y);
                 pointerMap.put(id, p);
                 mCanvas.drawBitmap(eventType,x,y,new Paint());
+                g.addGameEvent(2,(int)x,(int)y);
                 invalidate();
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 p = new Point((int)x, (int)y);
                 pointerMap.put(id, p);
-                mCanvas.drawBitmap(eventType, x, y,new Paint());
+                mCanvas.drawBitmap(eventType, x, y, new Paint());
+                g.addGameEvent(2,(int)x,(int)y);
                 invalidate();
                 break;
 

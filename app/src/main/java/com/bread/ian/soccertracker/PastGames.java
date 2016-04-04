@@ -34,7 +34,7 @@ public class PastGames extends Activity {
         String[] dates = new String[g.length];
         for(int i = 0; i<g.length; i++)
         {
-            dates[i] = g[i].getDate().toString();
+            dates[i] = g[i].getDate().toString(); 
         }
 
         listView = (ListView) findViewById(R.id.list);
