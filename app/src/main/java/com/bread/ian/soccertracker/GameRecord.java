@@ -14,6 +14,7 @@ public class GameRecord {
     public GameRecord(Date d){
         date = d;
         eventList = new ArrayList<>();
+        //TODO these ids aren't unique, they start over on app load
         id = ++currID;
 
     }
@@ -30,6 +31,12 @@ public class GameRecord {
         GameEvent g = new GameEvent(t,x,y);
         eventList.add(g);
     }
+
+    @Override
+    public String toString() {
+        return "Game " + id + " on " + date.toString();
+    }
+
 }
 
 

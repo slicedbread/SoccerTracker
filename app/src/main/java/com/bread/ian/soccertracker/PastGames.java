@@ -31,16 +31,12 @@ public class PastGames extends Activity {
         recordList = getListFromPrefs();
 
         GameRecord[] g = recordList.toArray(new GameRecord[recordList.size()]);
-        String[] dates = new String[g.length];
-        for(int i = 0; i<g.length; i++)
-        {
-            dates[i] = g[i].getDate().toString(); 
-        }
+
 
         listView = (ListView) findViewById(R.id.list);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, dates);
+        ArrayAdapter<GameRecord> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, g);
         listView.setAdapter(adapter);
     }
 
