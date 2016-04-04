@@ -1,5 +1,6 @@
 package com.bread.ian.soccertracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.util.Log;
 import android.widget.Toast;
 
-public class EmailActivity extends AppCompatActivity {
+public class EmailActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
