@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.graphics.Color;
 
 import java.util.HashMap;
 
@@ -17,17 +18,12 @@ import java.util.HashMap;
  * Created by Alex on 3/31/2016.
  */
 public class SoccerField extends View implements View.OnTouchListener{
-    public static int SMALL_RADIUS = 10;
-    public static int MEDIUM_RADIUS = 20;
-    public static int LARGE_RADIUS = 40;
-    public static int AREA_RADIUS = 40;
 
     private Paint  mPaint;
     private Bitmap mBitmap;
     private Canvas mCanvas;
-    private int dotRadius;
 
-    private Bitmap soccerball;
+    private Bitmap eventType;
 
     private HashMap pointerMap;
 
@@ -51,13 +47,23 @@ public class SoccerField extends View implements View.OnTouchListener{
         initDotsView();
     }
 
+    public void setEventType(String s) {
+        if (s.equals("GOAL")) {
+            eventType = BitmapFactory.decodeResource(getResources(), R.drawable.soccerball);
+        } else if (s.equals("MISS")) {
+            eventType = BitmapFactory.decodeResource(getResources(), R.drawable.missball);
+        } else if (s.equals("FOUL")) {
+            eventType = BitmapFactory.decodeResource(getResources(), R.drawable.foulball);
+        }
+    }
+
     private void initDotsView() {
         mPaint = new Paint();
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         pointerMap = new HashMap();
         setOnTouchListener(this);
 
-        soccerball = BitmapFactory.decodeResource(getResources(), R.drawable.soccerball);
+        eventType = BitmapFactory.decodeResource(getResources(), R.drawable.soccerball);
         //setDotRadius(SMALL_RADIUS);
         //setColor(Color.BLACK);
     }
@@ -86,33 +92,17 @@ public class SoccerField extends View implements View.OnTouchListener{
             case MotionEvent.ACTION_DOWN:
                 p = new Point((int)x, (int)y);
                 pointerMap.put(id, p);
-                mCanvas.drawBitmap(soccerball,x,y,new Paint());
+                mCanvas.drawBitmap(eventType,x,y,new Paint());
                 invalidate();
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 p = new Point((int)x, (int)y);
                 pointerMap.put(id, p);
-                mCanvas.drawBitmap(soccerball, x, y,new Paint());
+                mCanvas.drawBitmap(eventType, x, y,new Paint());
                 invalidate();
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                for (int i=0; i<event.getPointerCount(); ++i) {
-                    id = event.getPointerId(i);
-                    x = event.getX(i);
-                    y = event.getY(i);
-                    Point last = (Point) pointerMap.get(id);
-                    if (last != null) {
-                        if (dotRadius == AREA_RADIUS) {
-                            mPaint.setStrokeWidth((float) event.getSize(i) * 1000);
-                        }
-                        //mCanvas.drawLine(last.x, last.y, x, y, mPaint);
-                    }
-                    pointerMap.put(id, new Point((int) x, (int) y));
-                }
-                invalidate();
-                break;
-
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
