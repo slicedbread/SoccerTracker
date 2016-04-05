@@ -1,9 +1,12 @@
 package com.bread.ian.soccertracker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -31,7 +34,28 @@ public class PastGames extends Activity {
         ArrayAdapter<GameRecord> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, g);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // ListView Clicked item value
+                GameRecord itemValue = (GameRecord) listView.getItemAtPosition(position);
+
+                Intent intent = new Intent(view.getContext(), EmailActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(MainActivity.SER_KEY,itemValue);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+
+            }
+        });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
