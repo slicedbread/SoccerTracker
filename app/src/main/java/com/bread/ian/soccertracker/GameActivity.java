@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import java.util.ArrayList;
-
 public class GameActivity extends AppCompatActivity {
 
     public static final String mPrefs = "MyPrefs" ;
     SharedPreferences sharedpreferences;
-    ArrayList<GameRecord> recordList;
     GameRecord g;
     SoccerField field;
 

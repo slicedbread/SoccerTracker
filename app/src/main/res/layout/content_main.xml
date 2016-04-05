@@ -13,24 +13,11 @@
     tools:showIn="@layout/activity_main">
 
 
-    <Button
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/list"
         android:layout_height="wrap_content"
-        android:text="New Game"
-        android:id="@+id/button4"
-        android:onClick="sendMessage"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="76dp" />
+        android:layout_width="match_parent">
+    </ListView>
+    
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Old Game"
-        android:id="@+id/button5"
-        android:onClick="viewOldGames"
-        android:layout_below="@+id/button4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp" />
 </RelativeLayout>
