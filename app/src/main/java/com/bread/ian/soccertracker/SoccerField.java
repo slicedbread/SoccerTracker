@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.graphics.Color;
@@ -26,12 +28,17 @@ public class SoccerField extends View implements View.OnTouchListener{
     private GameRecord g;
     private int current_event = 1;
 
+
     private Bitmap eventType;
 
     //private HashMap pointerMap;
 
     public SoccerField(Context context) {
         super(context);
+
+
+
+        
         initDotsView();
     }
 
