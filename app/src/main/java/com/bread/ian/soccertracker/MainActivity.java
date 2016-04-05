@@ -9,17 +9,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String mPrefs = "MyPrefs";
     public final static String SER_KEY = "com.bread.ian.soccertracker.ser";
     SharedPreferences sharedpreferences;
-    ArrayList<GameRecord> recordList;
     public static Context contextOfApplication;
+
+
+    private ArrayList<GameRecord> recordList;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +43,45 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                (new GameRecord(new Date())).saveRecord();
+                Intent intent = new Intent(view.getContext(), GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        recordList = GameRecord.getListFromPrefs();
+
+        GameRecord[] g = recordList.toArray(new GameRecord[recordList.size()]);
+
+
+        listView = (ListView) findViewById(R.id.list);
+
+        ArrayAdapter<GameRecord> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, g);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // ListView Clicked item value
+                GameRecord itemValue = (GameRecord) listView.getItemAtPosition(position);
+
+                Intent intent = new Intent(view.getContext(), EmailActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(MainActivity.SER_KEY, itemValue);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+
             }
         });
 
 
     }
 
-    /** Called when the user clicks the Send button */
-    public void sendMessage(View view) {
-        // Do something in response to button
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-    }
 
-    public void viewOldGames(View view){
-        Intent intent = new Intent(this, PastGames.class);
-        startActivity(intent);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

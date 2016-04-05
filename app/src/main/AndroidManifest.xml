@@ -23,10 +23,6 @@
             android:label="@string/title_activity_game"
             android:screenOrientation="userLandscape"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".PastGames"
-            android:label="@string/title_activity_past_games" >
-        </activity>
         <activity android:name=".EmailActivity">
 
             <intent-filter>
