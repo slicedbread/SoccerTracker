@@ -16,6 +16,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     public static final String mPrefs = "MyPrefs";
+    public final static String SER_KEY = "com.bread.ian.soccertracker.ser";
     SharedPreferences sharedpreferences;
     ArrayList<GameRecord> recordList;
     public static Context contextOfApplication;

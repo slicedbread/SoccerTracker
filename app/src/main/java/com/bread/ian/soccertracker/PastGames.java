@@ -12,16 +12,15 @@ import java.util.ArrayList;
 
 public class PastGames extends Activity {
 
-    //public static final String mPrefs = "MyPrefs" ;
-    //SharedPreferences sharedpreferences;
-    ArrayList<GameRecord> recordList;
-    ListView listView;
+
+    private ArrayList<GameRecord> recordList;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_games);
-        //sharedpreferences = getSharedPreferences(mPrefs, Context.MODE_PRIVATE);
+
         recordList = GameRecord.getListFromPrefs();
 
         GameRecord[] g = recordList.toArray(new GameRecord[recordList.size()]);
