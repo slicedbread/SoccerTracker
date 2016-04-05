@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -46,37 +47,13 @@ public class GameActivity extends AppCompatActivity {
 
         field = (SoccerField) findViewById(R.id.soccerfield);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        //ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        //imageView.setImageResource(R.drawable.soccer_field);
 
     }
 
-    public ArrayList<GameRecord> getListFromPrefs(){
-        String JSONString = sharedpreferences.getString(mPrefs, null);
-        Type type = new TypeToken<ArrayList<GameRecord>>(){}.getType();
-        recordList = new Gson().fromJson(JSONString, type);
-        if (recordList == null)
-            return new ArrayList<>();
-        return recordList;
-    }
 
     public void addRecordToList(){
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        ArrayList<GameRecord> l = getListFromPrefs();
         g = field.returnRecord();
-        l.add(g);
-        String JSONString = new Gson().toJson(l);
-        editor.putString(mPrefs, JSONString);
-        editor.commit();
+        g.saveRecord();
     }
 
 }

@@ -82,6 +82,7 @@ public class SoccerField extends View implements View.OnTouchListener{
 
         // create new Game Record
         g = new GameRecord(new Date());
+        Log.d("Game", "Game record has been created");
 
         eventType = BitmapFactory.decodeResource(getResources(), R.drawable.soccerball);
         //setDotRadius(SMALL_RADIUS);
@@ -112,6 +113,7 @@ public class SoccerField extends View implements View.OnTouchListener{
                 case MotionEvent.ACTION_DOWN:
                // case MotionEvent.ACTION_POINTER_DOWN:
                     p = new Point((int)x, (int)y);
+                    Log.d("Game","event type" + current_event + " x: " + x + " y: " + y);
                     //pointerMap.put(id, p);
                     mCanvas.drawBitmap(eventType,x,y,new Paint());
                     g.addGameEvent(current_event,(int)x,(int)y);
