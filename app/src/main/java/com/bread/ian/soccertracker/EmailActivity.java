@@ -3,13 +3,19 @@ package com.bread.ian.soccertracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class EmailActivity extends Activity {
+
+    private ArrayList<GameEvent> eventList;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +25,21 @@ public class EmailActivity extends Activity {
         // Load Data from shared Preferences
 
         // Format Shared Data
+
+        GameRecord game = (GameRecord)getIntent().getSerializableExtra(MainActivity.SER_KEY);
+
+        eventList = game.getList();
+
+        GameEvent[] g = eventList.toArray(new GameEvent[eventList.size()]);
+
+
+        listView = (ListView) findViewById(R.id.list);
+
+        ArrayAdapter<GameEvent> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, g);
+        listView.setAdapter(adapter);
+
+
     }
 
 

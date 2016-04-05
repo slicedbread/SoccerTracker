@@ -7,12 +7,13 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class GameRecord {
+public class GameRecord implements Serializable {
     private Date date;
     private ArrayList<GameEvent> eventList;
     public static ArrayList<GameRecord> recordList;
