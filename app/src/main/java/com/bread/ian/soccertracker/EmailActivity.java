@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class EmailActivity extends Activity {
 
@@ -78,11 +82,15 @@ public class EmailActivity extends Activity {
 
                 Intent email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto","", null));
+
                 email.putExtra(Intent.EXTRA_SUBJECT, subject);
                 email.putExtra(Intent.EXTRA_TEXT, message);
 
+
+
+
                 // need this to prompts email client only
-                //email.setType("message/rfc822");
+               // email.setType("message/rfc822");
 
                 try {
                     startActivity(Intent.createChooser(email, "Send mail..."));
@@ -93,6 +101,20 @@ public class EmailActivity extends Activity {
                 }
             }
         });
+    }
+
+    public void showImage(View view){
+        GameRecord game = (GameRecord)getIntent().getSerializableExtra(MainActivity.SER_KEY);
+        Date now = game.getDate();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+        String mPath = Environment.getExternalStorageDirectory().toString() + "/soccer_tracker/" + now + ".jpg";
+        Intent image = new Intent();
+    //    Log.d("Field", "H "+ Uri.parse("file:/" + mPath));
+        image.setAction(Intent.ACTION_VIEW);
+        Uri identifier = Uri.fromFile(new File(mPath));
+        image.setDataAndType(identifier,"image/*");
+        startActivity(image);
+
     }
 
 }
