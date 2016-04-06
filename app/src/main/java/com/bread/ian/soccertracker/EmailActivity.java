@@ -56,7 +56,7 @@ public class EmailActivity extends Activity {
         int numOfFouls = 0;
 
         for(int i = 0; i < g.length; i++) {
-            results += (g[i].toString() + '\n');
+            //results += (g[i].toString() + '\n');
             if(g[i].type == 1) {
                 numOfGoals++;
             }
