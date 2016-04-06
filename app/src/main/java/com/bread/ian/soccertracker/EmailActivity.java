@@ -25,6 +25,7 @@ public class EmailActivity extends Activity {
     GameEvent[] g;
     String totals;
     String results;
+    String summary1, summary2, summary3, summary4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,10 @@ public class EmailActivity extends Activity {
 
         totals = "";
         results = "";
-
+        summary1 = "";
+        summary2 = "";
+        summary3 = "";
+        summary4 = "";
         GameRecord game = (GameRecord)getIntent().getSerializableExtra(MainActivity.SER_KEY);
 
         eventList = game.getList();
@@ -41,11 +45,11 @@ public class EmailActivity extends Activity {
         g = eventList.toArray(new GameEvent[eventList.size()]);
 
 
-        listView = (ListView) findViewById(R.id.list);
+        //listView = (ListView) findViewById(R.id.list);
 
-        ArrayAdapter<GameEvent> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, g);
-        listView.setAdapter(adapter);
+//        ArrayAdapter<GameEvent> adapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_list_item_1, android.R.id.text1, g);
+//        listView.setAdapter(adapter);
 
         int numOfGoals = 0;
         int numOfMisses = 0;
@@ -64,13 +68,25 @@ public class EmailActivity extends Activity {
             }
         }
 
-        totals += "number of goals scored: " + numOfGoals + '\n';
-        totals += "number of misses scored: " + numOfMisses + '\n';
-        totals += "number of fouls scored: " + numOfFouls + '\n';
-        results += totals;
+//        totals += "Goals scored:  " + numOfGoals + '\n';
+//        totals += "Missed Shots: " + numOfMisses + '\n';
+//        totals += "Fouls Committed: " + numOfFouls + '\n';
+//        totals += "Shot Accuracy: " + (numOfGoals)/(numOfGoals+numOfMisses)  *100 +"%" +'\n';
+        //results += totals;
 
-        TextView t = (TextView) findViewById(R.id.resultTextView);
-        t.setText(totals);
+        summary1 = "Goals scored:  " + numOfGoals ;
+        summary2 = "Missed Shots: " + numOfMisses ;
+        summary3 = "Fouls Committed: " + numOfFouls ;
+        summary4 = "Shot Accuracy: " + (numOfGoals)/(numOfGoals+numOfMisses)  *100 +"%" ;
+
+        TextView t1 = (TextView) findViewById(R.id.resultTextView1);
+        TextView t2 = (TextView) findViewById(R.id.resultTextView2);
+        TextView t3 = (TextView) findViewById(R.id.resultTextView3);
+        TextView t4 = (TextView) findViewById(R.id.resultTextView4);
+        t1.setText(summary1);
+        t2.setText(summary2);
+        t3.setText(summary3);
+        t4.setText(summary4);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.emailfab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -10,45 +10,90 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bread.ian.soccertracker.EmailActivity">
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-        <!--android:text="X:    Y:    Event:"-->
-        <!--android:id="@+id/textView2"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentStart="true" />-->
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </ListView>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/resultTextView"
-        android:layout_alignBottom="@+id/list"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/summary"
+        android:text="Summary"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:layout_weight="1">
 
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resultTextView1"
+        android:textSize="25sp"
+        android:layout_centerInParent="true"
+        android:textAlignment="center">
+
+    </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resultTextView2"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_centerInParent="true"
+            android:textAlignment="center">
+
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resultTextView3"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_centerInParent="true"
+            android:textAlignment="center">
+
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resultTextView4"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_centerInParent="true"
+            android:textAlignment="center">
+
+        </TextView>
+
+</LinearLayout>
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+        <Button
+            android:id="@+id/fieldimage"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See Field"
+            android:onClick="showImage"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true">
+
+        </Button>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/emailfab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
-
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="See Field"
-        android:onClick="showImage">
-
-    </Button>
-
+    android:id="@+id/emailfab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+    android:layout_gravity="right"
+    android:layout_margin="@dimen/fab_margin"
+    android:src="@android:drawable/ic_dialog_email" />
+</RelativeLayout>
 </LinearLayout>
