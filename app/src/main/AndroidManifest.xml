@@ -22,7 +22,8 @@
             android:name=".GameActivity"
             android:label="@string/title_activity_game"
             android:screenOrientation="userLandscape"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"/>
         <activity android:name=".EmailActivity">
 
             <intent-filter>
