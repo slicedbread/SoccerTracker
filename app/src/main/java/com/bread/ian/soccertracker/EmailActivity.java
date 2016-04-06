@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -66,30 +67,32 @@ public class EmailActivity extends Activity {
 
         TextView t = (TextView) findViewById(R.id.resultTextView);
         t.setText(totals);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.emailfab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String[] emails = {""};
+                String subject = "Game Record";
+                String message = results;
+
+                Intent email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","", null));
+                email.putExtra(Intent.EXTRA_SUBJECT, subject);
+                email.putExtra(Intent.EXTRA_TEXT, message);
+
+                // need this to prompts email client only
+                //email.setType("message/rfc822");
+
+                try {
+                    startActivity(Intent.createChooser(email, "Send mail..."));
+                    Log.i("Finished sending email.", "");
+                }
+                catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(EmailActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-
-    // Send Email Activity
-    public void sendEmail(View view) {
-
-        String[] emails = {""};
-        String subject = "Game Record";
-        String message = results;
-
-        Intent email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto","", null));
-        email.putExtra(Intent.EXTRA_SUBJECT, subject);
-        email.putExtra(Intent.EXTRA_TEXT, message);
-
-        // need this to prompts email client only
-        //email.setType("message/rfc822");
-
-        try {
-            startActivity(Intent.createChooser(email, "Send mail..."));
-            Log.i("Finished sending email.", "");
-        }
-        catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(EmailActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
-    }
 }
