@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,15 +18,16 @@ public class EmailActivity extends Activity {
     private ArrayList<GameEvent> eventList;
     private ListView listView;
     GameEvent[] g;
+    String totals;
+    String results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
 
-        // Load Data from shared Preferences
-
-        // Format Shared Data
+        totals = "";
+        results = "";
 
         GameRecord game = (GameRecord)getIntent().getSerializableExtra(MainActivity.SER_KEY);
 
@@ -40,19 +42,35 @@ public class EmailActivity extends Activity {
                 android.R.layout.simple_list_item_1, android.R.id.text1, g);
         listView.setAdapter(adapter);
 
+        int numOfGoals = 0;
+        int numOfMisses = 0;
+        int numOfFouls = 0;
 
+        for(int i = 0; i < g.length; i++) {
+            results += (g[i].toString() + '\n');
+            if(g[i].type == 1) {
+                numOfGoals++;
+            }
+            else if(g[i].type == 2) {
+                numOfMisses++;
+            }
+            else {
+                numOfFouls++;
+            }
+        }
+
+        totals += "number of goals scored: " + numOfGoals + '\n';
+        totals += "number of misses scored: " + numOfMisses + '\n';
+        totals += "number of fouls scored: " + numOfFouls + '\n';
+        results += totals;
+
+        TextView t = (TextView) findViewById(R.id.resultTextView);
+        t.setText(totals);
     }
 
 
     // Send Email Activity
     public void sendEmail(View view) {
-
-        //TODO: Replace static data with real data
-        String results = "";
-
-        for(int i = 0; i < g.length; i++) {
-            results += (g[i].toString() + '\n');
-        }
 
         String[] emails = {""};
         String subject = "Game Record";
@@ -68,7 +86,6 @@ public class EmailActivity extends Activity {
 
         try {
             startActivity(Intent.createChooser(email, "Send mail..."));
-            finish();
             Log.i("Finished sending email.", "");
         }
         catch (android.content.ActivityNotFoundException ex) {
