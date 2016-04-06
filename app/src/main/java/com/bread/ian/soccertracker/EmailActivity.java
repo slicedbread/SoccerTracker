@@ -16,6 +16,7 @@ public class EmailActivity extends Activity {
 
     private ArrayList<GameEvent> eventList;
     private ListView listView;
+    GameEvent[] g;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class EmailActivity extends Activity {
 
         eventList = game.getList();
 
-        GameEvent[] g = eventList.toArray(new GameEvent[eventList.size()]);
+        g = eventList.toArray(new GameEvent[eventList.size()]);
 
 
         listView = (ListView) findViewById(R.id.list);
@@ -47,12 +48,18 @@ public class EmailActivity extends Activity {
     public void sendEmail(View view) {
 
         //TODO: Replace static data with real data
+        String results = "";
+
+        for(int i = 0; i < g.length; i++) {
+            results += (g[i].toString() + '\n');
+        }
+
         String[] emails = {""};
-        String subject = "Game identifier";
-        String message = "X: 20.3 Y: 30.2 Event: Goal";
+        String subject = "Game Record";
+        String message = results;
 
         Intent email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto","alextwotu@gmail.com", null));
+                "mailto","", null));
         email.putExtra(Intent.EXTRA_SUBJECT, subject);
         email.putExtra(Intent.EXTRA_TEXT, message);
 
