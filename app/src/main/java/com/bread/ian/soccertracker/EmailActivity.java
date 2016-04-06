@@ -87,6 +87,7 @@ public class EmailActivity extends Activity {
         t2.setText(summary2);
         t3.setText(summary3);
         t4.setText(summary4);
+        results = summary1 +"\n" + summary2 + "\n" + summary3 + "\n" + summary4;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.emailfab);
         fab.setOnClickListener(new View.OnClickListener() {
