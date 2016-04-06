@@ -32,6 +32,11 @@ public class GameRecord implements Serializable {
         return eventList;
     }
 
+    public String getName() {
+        if (eventList.size() == 0) return "Empty Record";
+        else return "Game with " + eventList.size() + " records";
+    }
+
     public Date getDate(){
         return date;
     }
